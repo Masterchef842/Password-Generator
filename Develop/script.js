@@ -22,7 +22,7 @@ function userPrompt(){    //get password specifications
   let num=window.confirm("Would you like the password to contain numeric characters?  (1234...)");
   let spec=window.confirm("Would you like the password to contain special characters?  (!@#$...)")
 
-  generatePassword(len,upper,lower, num, spec);
+  return generatePassword(len,upper,lower, num, spec);
 }
 
 
@@ -31,16 +31,18 @@ function generatePassword(len,upper,lower, num, spec){
   let password =[];
   let charSet=[];
   if(upper)
-    charSet.concat(uCase);
+    charSet=charSet.concat(uCase);
   if(lower)
-    charSet.concat(lCase);
+    charSet=charSet.concat(lCase);
   if(num)
-    charSet.concat(nums);
+    charSet=charSet.concat(nums);
   if(spec)
-    charSet.concat(sChars);
+    charSet=charSet.concat(sChars);
 
-
-
+  while(password.length<len){
+    password.push(charSet[Math.floor(Math.random()*charSet.length)])
+  }
+  return password.join('');
 }
 
 
