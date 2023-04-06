@@ -9,18 +9,23 @@ let sChars=("'"+' !"#$%&()*+,-./:;<=>?@[\]^_`{|}~').split('');
 function userPrompt(){    //get password specifications
 
   let len=window.prompt("How many characters long would you like your password to be?\nmin:8\nmax128");
-  console.log(typeof len);
   
   //check if length is valid
   if(isNaN(len)||+len>128||+len<8){
     window.alert("invalid input, please try again...")
-    userPrompt();
-    return;
+    return userPrompt();
+    
   }
   let upper=window.confirm("Would you like the password to contain uppercase characters?  (ABCD...)");
   let lower=window.confirm("Would you like the password to contain lowercase characters?  (abcd...)");
   let num=window.confirm("Would you like the password to contain numeric characters?  (1234...)");
   let spec=window.confirm("Would you like the password to contain special characters?  (!@#$...)")
+
+  if(upper==false&&lower==false&&num==false&&spec==false){
+    window.alert("Picky, arent we?\n\n You must select at least one character type for use in password");
+    return userPrompt();
+    
+  }
 
   return generatePassword(len,upper,lower, num, spec);
 }
@@ -30,14 +35,26 @@ function userPrompt(){    //get password specifications
 function generatePassword(len,upper,lower, num, spec){
   let password =[];
   let charSet=[];
-  if(upper)
+  
+  //creates the pool of random character to draw from & ensures password has at least one of each type of selected character 
+  if(upper){
     charSet=charSet.concat(uCase);
-  if(lower)
+    password.push(uCase[Math.floor(Math.random()*uCase.length)]);
+  }
+  if(lower){
     charSet=charSet.concat(lCase);
-  if(num)
+    password.push(lCase[Math.floor(Math.random()*lCase.length)]);
+  }
+  if(num){
     charSet=charSet.concat(nums);
-  if(spec)
+    password.push(nums[Math.floor(Math.random()*nums.length)]);
+  }
+  if(spec){
     charSet=charSet.concat(sChars);
+    password.push(sChars[Math.floor(Math.random()*sChars.length)]);
+  }
+
+
 
   while(password.length<len){
     password.push(charSet[Math.floor(Math.random()*charSet.length)])
@@ -65,14 +82,6 @@ generateBtn.addEventListener("click", writePassword);
 
 
 // GIVEN I need a new, secure password
-// WHEN I click the button to generate a password
-// THEN I am presented with a series of prompts for password criteria
-// WHEN prompted for password criteria
-// THEN I select which criteria to include in the password
-// WHEN prompted for the length of the password
-// THEN I choose a length of at least 8 characters and no more than 128 characters
-// WHEN asked for character types to include in the password
-// THEN I confirm whether or not to include lowercase, uppercase, numeric, and/or special characters
 // WHEN I answer each prompt
 // THEN my input should be validated and at least one character type should be selected
 // WHEN all prompts are answered
