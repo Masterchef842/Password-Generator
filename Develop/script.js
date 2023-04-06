@@ -1,5 +1,9 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
+let lCase='abcdefghijklmnopqrstuvwxyz'.split('');
+let uCase='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+let nums='1234567890'.split('');
+let sChars=("'"+' !"#$%&()*+,-./:;<=>?@[\]^_`{|}~').split('');
 
 // Write password to the #password input
 function writePassword() {
