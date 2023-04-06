@@ -21,6 +21,9 @@ function userPrompt(){    //get password specifications
   let num=window.confirm("Would you like the password to contain numeric characters?  (1234...)");
   let spec=window.confirm("Would you like the password to contain special characters?  (!@#$...)")
 
+
+  //check if user has selected at least one type of charcter
+
   if(upper==false&&lower==false&&num==false&&spec==false){
     window.alert("Picky, arent we?\n\n You must select at least one character type for use in password");
     return userPrompt();
@@ -36,7 +39,7 @@ function generatePassword(len,upper,lower, num, spec){
   let password =[];
   let charSet=[];
   
-  //creates the pool of random character to draw from & ensures password has at least one of each type of selected character 
+  //creates the pool of random characters to draw from & ensures password has at least one of each type of selected character 
   if(upper){
     charSet=charSet.concat(uCase);
     password.push(uCase[Math.floor(Math.random()*uCase.length)]);
@@ -77,14 +80,3 @@ function writePassword() {
 generateBtn.addEventListener("click", writePassword);
 
 
-
-
-
-
-// GIVEN I need a new, secure password
-// WHEN I answer each prompt
-// THEN my input should be validated and at least one character type should be selected
-// WHEN all prompts are answered
-// THEN a password is generated that matches the selected criteria
-// WHEN the password is generated
-// THEN the password is either displayed in an alert or written to the page
